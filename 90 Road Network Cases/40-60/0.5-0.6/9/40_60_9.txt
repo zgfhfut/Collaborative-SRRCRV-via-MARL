@@ -1,0 +1,157 @@
+node_num : 40
+demand_node_num : 20
+edge_num : 60
+damaged_edge_num : 36
+/***********************node**************************/
+const set<int> node_store = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,  };
+/*********************demand_node*********************/
+const set<int> demand_node_store = { 4, 8, 9, 11, 14, 15, 16, 18, 22, 24, 25, 26, 27, 28, 29, 35, 36, 37, 38, 39,  };
+/***********************edge**************************/
+const set<Line> edge_store = { Line(0, 5), Line(0, 33), Line(0, 36), Line(0, 37), Line(0, 38), Line(1, 31), Line(1, 36), Line(2, 30), Line(2, 38), Line(3, 6), Line(3, 8), Line(3, 9), Line(3, 38), Line(3, 39), Line(4, 17), Line(4, 21), Line(5, 26), Line(6, 10), Line(6, 27), Line(7, 12), Line(7, 17), Line(8, 25), Line(8, 36), Line(9, 14), Line(9, 29), Line(9, 33), Line(10, 26), Line(10, 29), Line(10, 34), Line(11, 26), Line(11, 27), Line(11, 28), Line(11, 33), Line(12, 27), Line(13, 15), Line(13, 22), Line(14, 24), Line(15, 29), Line(15, 30), Line(15, 32), Line(16, 17), Line(16, 32), Line(16, 35), Line(18, 19), Line(18, 37), Line(19, 21), Line(19, 29), Line(20, 25), Line(20, 26), Line(21, 31), Line(23, 28), Line(23, 37), Line(24, 32), Line(26, 27), Line(26, 35), Line(30, 37), Line(32, 38), Line(33, 34), Line(34, 36), Line(35, 39),  };
+/********************damaged_node*********************/
+const set<Line> damaged_edge_store = { Line(0, 36), Line(0, 37), Line(0, 38), Line(1, 36), Line(2, 38), Line(3, 6), Line(3, 9), Line(3, 39), Line(4, 21), Line(5, 26), Line(6, 10), Line(7, 12), Line(8, 25), Line(8, 36), Line(9, 14), Line(9, 29), Line(10, 34), Line(11, 26), Line(11, 28), Line(11, 33), Line(14, 24), Line(15, 29), Line(15, 32), Line(16, 35), Line(18, 19), Line(19, 21), Line(19, 29), Line(20, 25), Line(20, 26), Line(21, 31), Line(23, 28), Line(23, 37), Line(24, 32), Line(32, 38), Line(33, 34), Line(34, 36),  };
+const double demand_num_pro = 0.5;
+const double damaged_edge_pro = 0.6;
+/*********************add_edge*************************/
+g.add_edge(0, 5, 11.4);
+g.add_edge(0, 33, 5);
+g.add_edge(0, 36, 7.07);
+g.add_edge(0, 37, 6.7);
+g.add_edge(0, 38, 2.23);
+g.add_edge(1, 31, 6.4);
+g.add_edge(1, 36, 4.24);
+g.add_edge(2, 30, 5.09);
+g.add_edge(2, 38, 6.32);
+g.add_edge(3, 6, 5.65);
+g.add_edge(3, 8, 2.82);
+g.add_edge(3, 9, 9.21);
+g.add_edge(3, 38, 5.83);
+g.add_edge(3, 39, 5);
+g.add_edge(4, 17, 2);
+g.add_edge(4, 21, 1);
+g.add_edge(5, 26, 4);
+g.add_edge(6, 10, 7.07);
+g.add_edge(6, 27, 1);
+g.add_edge(7, 12, 10.29);
+g.add_edge(7, 17, 9.21);
+g.add_edge(8, 25, 5.65);
+g.add_edge(8, 36, 5);
+g.add_edge(9, 14, 8.06);
+g.add_edge(9, 29, 4.12);
+g.add_edge(9, 33, 6.4);
+g.add_edge(10, 26, 2.23);
+g.add_edge(10, 29, 7.21);
+g.add_edge(10, 34, 8.06);
+g.add_edge(11, 26, 7.21);
+g.add_edge(11, 27, 1.41);
+g.add_edge(11, 28, 2.23);
+g.add_edge(11, 33, 4.12);
+g.add_edge(12, 27, 5.09);
+g.add_edge(13, 15, 3);
+g.add_edge(13, 22, 9.21);
+g.add_edge(14, 24, 5.09);
+g.add_edge(15, 29, 8.54);
+g.add_edge(15, 30, 5.38);
+g.add_edge(15, 32, 11.31);
+g.add_edge(16, 17, 7.61);
+g.add_edge(16, 32, 9.84);
+g.add_edge(16, 35, 7.28);
+g.add_edge(18, 19, 2.23);
+g.add_edge(18, 37, 7.81);
+g.add_edge(19, 21, 2.23);
+g.add_edge(19, 29, 2.82);
+g.add_edge(20, 25, 4.12);
+g.add_edge(20, 26, 3.16);
+g.add_edge(21, 31, 7);
+g.add_edge(23, 28, 3.16);
+g.add_edge(23, 37, 5.83);
+g.add_edge(24, 32, 7);
+g.add_edge(26, 27, 5.83);
+g.add_edge(26, 35, 2.82);
+g.add_edge(30, 37, 4);
+g.add_edge(32, 38, 7.28);
+g.add_edge(33, 34, 5);
+g.add_edge(34, 36, 7.07);
+g.add_edge(35, 39, 5.09);
+/*********************set_importance*************************/
+g.set_importance(0, 0);
+g.set_importance(1, 0);
+g.set_importance(2, 0);
+g.set_importance(3, 0);
+g.set_importance(4, 3.49);
+g.set_importance(5, 0);
+g.set_importance(6, 0);
+g.set_importance(7, 0);
+g.set_importance(8, 2.89);
+g.set_importance(9, 6.66);
+g.set_importance(10, 0);
+g.set_importance(11, 4.47);
+g.set_importance(12, 0);
+g.set_importance(13, 0);
+g.set_importance(14, 8.38);
+g.set_importance(15, 7.07);
+g.set_importance(16, 1.28);
+g.set_importance(17, 0);
+g.set_importance(18, 9.69);
+g.set_importance(19, 0);
+g.set_importance(20, 0);
+g.set_importance(21, 0);
+g.set_importance(22, 1.21);
+g.set_importance(23, 0);
+g.set_importance(24, 2.86);
+g.set_importance(25, 1.96);
+g.set_importance(26, 8.54);
+g.set_importance(27, 4.39);
+g.set_importance(28, 3.54);
+g.set_importance(29, 8.07);
+g.set_importance(30, 0);
+g.set_importance(31, 0);
+g.set_importance(32, 0);
+g.set_importance(33, 0);
+g.set_importance(34, 0);
+g.set_importance(35, 6.98);
+g.set_importance(36, 9.5);
+g.set_importance(37, 9.15);
+g.set_importance(38, 3.65);
+g.set_importance(39, 2.51);
+/*********************set_repair*************************/
+g.set_repair_time(Line(0, 36), 3.54);
+g.set_repair_time(Line(0, 37), 4.29);
+g.set_repair_time(Line(0, 38), 1.61);
+g.set_repair_time(Line(1, 36), 4.12);
+g.set_repair_time(Line(2, 38), 4.88);
+g.set_repair_time(Line(3, 6), 3.67);
+g.set_repair_time(Line(3, 9), 2.14);
+g.set_repair_time(Line(3, 39), 2.33);
+g.set_repair_time(Line(4, 21), 2.26);
+g.set_repair_time(Line(5, 26), 4.77);
+g.set_repair_time(Line(6, 10), 2.57);
+g.set_repair_time(Line(7, 12), 3.11);
+g.set_repair_time(Line(8, 25), 3.26);
+g.set_repair_time(Line(8, 36), 1.15);
+g.set_repair_time(Line(9, 14), 3.02);
+g.set_repair_time(Line(9, 29), 1.09);
+g.set_repair_time(Line(10, 34), 1.86);
+g.set_repair_time(Line(11, 26), 2.24);
+g.set_repair_time(Line(11, 28), 3.09);
+g.set_repair_time(Line(11, 33), 2.97);
+g.set_repair_time(Line(14, 24), 1.31);
+g.set_repair_time(Line(15, 29), 1.1);
+g.set_repair_time(Line(15, 32), 3);
+g.set_repair_time(Line(16, 35), 1.62);
+g.set_repair_time(Line(18, 19), 4.35);
+g.set_repair_time(Line(19, 21), 1.13);
+g.set_repair_time(Line(19, 29), 4.63);
+g.set_repair_time(Line(20, 25), 2.76);
+g.set_repair_time(Line(20, 26), 1.4);
+g.set_repair_time(Line(21, 31), 4.59);
+g.set_repair_time(Line(23, 28), 4.57);
+g.set_repair_time(Line(23, 37), 4.14);
+g.set_repair_time(Line(24, 32), 3.35);
+g.set_repair_time(Line(32, 38), 2.35);
+g.set_repair_time(Line(33, 34), 4.78);
+g.set_repair_time(Line(34, 36), 1.05);
+const double max_allowed_pro0 = 1.25
+const map<int, double> max_allowed_dis_store0 = { {0, 0}, {1, 14.1375}, {2, 10.6875}, {3, 10.075}, {4, 24.9625}, {5, 14.25}, {6, 14.4125}, {7, 32.3875}, {8, 13.6}, {9, 14.25}, {10, 22.0375}, {11, 11.4}, {12, 19.525}, {13, 23.85}, {14, 24.325}, {15, 20.1}, {16, 24.1875}, {17, 27.4625}, {18, 18.1375}, {19, 20.925}, {20, 23.2}, {21, 23.7125}, {22, 35.3625}, {23, 15.6625}, {24, 20.6375}, {25, 20.6625}, {26, 19.25}, {27, 13.1625}, {28, 14.1875}, {29, 19.4}, {30, 13.375}, {31, 22.1375}, {32, 11.8875}, {33, 6.25}, {34, 12.5}, {35, 22.6875}, {36, 8.8375}, {37, 8.375}, {38, 2.7875}, {39, 16.325}, const double max_allowed_pro1 = 1.25
+const map<int, double> max_allowed_dis_store1 = { {0, 14.1375}, {1, 0}, {2, 24.825}, {3, 15.075}, {4, 18}, {5, 28.3875}, {6, 22.1375}, {7, 32.0125}, {8, 11.55}, {9, 26.5875}, {10, 24.2125}, {11, 25.15}, {12, 29.75}, {13, 37.4875}, {14, 36.6625}, {15, 33.7375}, {16, 30.0125}, {17, 20.5}, {18, 22.325}, {19, 19.5375}, {20, 23.7625}, {21, 16.75}, {22, 49}, {23, 29.8}, {24, 34.775}, {25, 18.6125}, {26, 27}, {27, 23.3875}, {28, 27.9375}, {29, 23.0625}, {30, 27.5125}, {31, 8}, {32, 26.025}, {33, 20.3875}, {34, 14.1375}, {35, 27.6875}, {36, 5.3}, {37, 22.5125}, {38, 16.925}, {39, 21.325}, const double max_allowed_pro2 = 1.25
+const map<int, double> max_allowed_dis_store2 = { {0, 10.6875}, {1, 24.825}, {2, 0}, {3, 15.1875}, {4, 27.95}, {5, 24.9375}, {6, 22.25}, {7, 41.9625}, {8, 18.7125}, {9, 24.9375}, {10, 31.0875}, {11, 22.0875}, {12, 29.8625}, {13, 16.8375}, {14, 32.1125}, {15, 13.0875}, {16, 29.3}, {17, 30.45}, {18, 21.125}, {19, 23.9125}, {20, 30.925}, {21, 26.7}, {22, 28.35}, {23, 18.65}, {24, 25.75}, {25, 25.775}, {26, 29.9375}, {27, 23.5}, {28, 22.6}, {29, 23.7625}, {30, 6.3625}, {31, 32.825}, {32, 17}, {33, 16.9375}, {34, 23.1875}, {35, 27.8}, {36, 19.525}, {37, 11.3625}, {38, 7.9}, {39, 21.4375}, 

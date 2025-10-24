@@ -1,0 +1,151 @@
+node_num : 40
+demand_node_num : 16
+edge_num : 60
+damaged_edge_num : 30
+/***********************node**************************/
+const set<int> node_store = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,  };
+/*********************demand_node*********************/
+const set<int> demand_node_store = { 4, 5, 8, 9, 10, 11, 14, 16, 18, 21, 23, 24, 25, 29, 30, 36,  };
+/***********************edge**************************/
+const set<Line> edge_store = { Line(0, 25), Line(0, 30), Line(0, 34), Line(1, 2), Line(1, 19), Line(1, 26), Line(2, 33), Line(2, 35), Line(2, 38), Line(3, 14), Line(3, 16), Line(3, 37), Line(4, 18), Line(4, 38), Line(5, 17), Line(5, 22), Line(6, 15), Line(6, 16), Line(6, 32), Line(7, 11), Line(7, 15), Line(7, 20), Line(7, 30), Line(8, 14), Line(8, 18), Line(8, 20), Line(8, 27), Line(9, 28), Line(9, 31), Line(10, 25), Line(10, 38), Line(11, 20), Line(11, 34), Line(12, 37), Line(12, 39), Line(13, 26), Line(13, 28), Line(14, 28), Line(14, 30), Line(15, 17), Line(16, 32), Line(17, 21), Line(18, 38), Line(19, 24), Line(20, 23), Line(20, 25), Line(21, 24), Line(21, 39), Line(22, 29), Line(23, 35), Line(23, 37), Line(24, 28), Line(24, 30), Line(26, 37), Line(27, 31), Line(27, 39), Line(29, 36), Line(31, 39), Line(33, 36), Line(33, 39),  };
+/********************damaged_node*********************/
+const set<Line> damaged_edge_store = { Line(1, 19), Line(1, 26), Line(3, 37), Line(5, 22), Line(6, 15), Line(6, 16), Line(6, 32), Line(7, 11), Line(7, 30), Line(8, 14), Line(8, 18), Line(8, 20), Line(9, 28), Line(10, 25), Line(11, 34), Line(12, 37), Line(13, 28), Line(14, 30), Line(15, 17), Line(18, 38), Line(19, 24), Line(20, 25), Line(21, 24), Line(23, 37), Line(24, 28), Line(24, 30), Line(26, 37), Line(27, 39), Line(29, 36), Line(33, 36),  };
+const double demand_num_pro = 0.4;
+const double damaged_edge_pro = 0.5;
+/*********************add_edge*************************/
+g.add_edge(0, 25, 3);
+g.add_edge(0, 30, 7.21);
+g.add_edge(0, 34, 2);
+g.add_edge(1, 2, 5.83);
+g.add_edge(1, 19, 7.21);
+g.add_edge(1, 26, 7.28);
+g.add_edge(2, 33, 1.41);
+g.add_edge(2, 35, 5);
+g.add_edge(2, 38, 5.38);
+g.add_edge(3, 14, 9.05);
+g.add_edge(3, 16, 2);
+g.add_edge(3, 37, 5);
+g.add_edge(4, 18, 2);
+g.add_edge(4, 38, 2.23);
+g.add_edge(5, 17, 6.32);
+g.add_edge(5, 22, 7.07);
+g.add_edge(6, 15, 1.41);
+g.add_edge(6, 16, 7.07);
+g.add_edge(6, 32, 7.28);
+g.add_edge(7, 11, 7.81);
+g.add_edge(7, 15, 4.47);
+g.add_edge(7, 20, 4.47);
+g.add_edge(7, 30, 8.06);
+g.add_edge(8, 14, 5);
+g.add_edge(8, 18, 4.12);
+g.add_edge(8, 20, 6.08);
+g.add_edge(8, 27, 6);
+g.add_edge(9, 28, 8.48);
+g.add_edge(9, 31, 9.89);
+g.add_edge(10, 25, 5);
+g.add_edge(10, 38, 3.16);
+g.add_edge(11, 20, 7.28);
+g.add_edge(11, 34, 8.94);
+g.add_edge(12, 37, 5.65);
+g.add_edge(12, 39, 7.61);
+g.add_edge(13, 26, 4);
+g.add_edge(13, 28, 9.89);
+g.add_edge(14, 28, 6.08);
+g.add_edge(14, 30, 5);
+g.add_edge(15, 17, 7.61);
+g.add_edge(16, 32, 3);
+g.add_edge(17, 21, 7.21);
+g.add_edge(18, 38, 1);
+g.add_edge(19, 24, 2.23);
+g.add_edge(20, 23, 5.83);
+g.add_edge(20, 25, 4);
+g.add_edge(21, 24, 6.08);
+g.add_edge(21, 39, 5);
+g.add_edge(22, 29, 9.89);
+g.add_edge(23, 35, 3.6);
+g.add_edge(23, 37, 1);
+g.add_edge(24, 28, 10);
+g.add_edge(24, 30, 9.89);
+g.add_edge(26, 37, 3.16);
+g.add_edge(27, 31, 9.48);
+g.add_edge(27, 39, 7.61);
+g.add_edge(29, 36, 2.23);
+g.add_edge(31, 39, 6.32);
+g.add_edge(33, 36, 6.7);
+g.add_edge(33, 39, 1);
+/*********************set_importance*************************/
+g.set_importance(0, 0);
+g.set_importance(1, 0);
+g.set_importance(2, 0);
+g.set_importance(3, 0);
+g.set_importance(4, 3.5);
+g.set_importance(5, 6.38);
+g.set_importance(6, 0);
+g.set_importance(7, 0);
+g.set_importance(8, 9.85);
+g.set_importance(9, 6.59);
+g.set_importance(10, 8.25);
+g.set_importance(11, 7.62);
+g.set_importance(12, 0);
+g.set_importance(13, 0);
+g.set_importance(14, 4.45);
+g.set_importance(15, 0);
+g.set_importance(16, 2.18);
+g.set_importance(17, 0);
+g.set_importance(18, 4.04);
+g.set_importance(19, 0);
+g.set_importance(20, 0);
+g.set_importance(21, 6.99);
+g.set_importance(22, 0);
+g.set_importance(23, 9.25);
+g.set_importance(24, 7.2);
+g.set_importance(25, 1.04);
+g.set_importance(26, 0);
+g.set_importance(27, 0);
+g.set_importance(28, 0);
+g.set_importance(29, 7.06);
+g.set_importance(30, 6.41);
+g.set_importance(31, 0);
+g.set_importance(32, 0);
+g.set_importance(33, 0);
+g.set_importance(34, 0);
+g.set_importance(35, 0);
+g.set_importance(36, 5);
+g.set_importance(37, 0);
+g.set_importance(38, 0);
+g.set_importance(39, 0);
+/*********************set_repair*************************/
+g.set_repair_time(Line(1, 19), 1.64);
+g.set_repair_time(Line(1, 26), 1.58);
+g.set_repair_time(Line(3, 37), 1.42);
+g.set_repair_time(Line(5, 22), 2.63);
+g.set_repair_time(Line(6, 15), 4.61);
+g.set_repair_time(Line(6, 16), 3.1);
+g.set_repair_time(Line(6, 32), 4.38);
+g.set_repair_time(Line(7, 11), 1.58);
+g.set_repair_time(Line(7, 30), 3.26);
+g.set_repair_time(Line(8, 14), 1.39);
+g.set_repair_time(Line(8, 18), 3);
+g.set_repair_time(Line(8, 20), 4.29);
+g.set_repair_time(Line(9, 28), 2.01);
+g.set_repair_time(Line(10, 25), 3.02);
+g.set_repair_time(Line(11, 34), 3.15);
+g.set_repair_time(Line(12, 37), 2.83);
+g.set_repair_time(Line(13, 28), 2.22);
+g.set_repair_time(Line(14, 30), 4.21);
+g.set_repair_time(Line(15, 17), 2.93);
+g.set_repair_time(Line(18, 38), 1.47);
+g.set_repair_time(Line(19, 24), 3.71);
+g.set_repair_time(Line(20, 25), 3.36);
+g.set_repair_time(Line(21, 24), 4.09);
+g.set_repair_time(Line(23, 37), 3.88);
+g.set_repair_time(Line(24, 28), 1.47);
+g.set_repair_time(Line(24, 30), 1.84);
+g.set_repair_time(Line(26, 37), 2.67);
+g.set_repair_time(Line(27, 39), 4.61);
+g.set_repair_time(Line(29, 36), 2.52);
+g.set_repair_time(Line(33, 36), 1.44);
+const double max_allowed_pro0 = 1.25
+const map<int, double> max_allowed_dis_store0 = { {0, 0}, {1, 27.9625}, {2, 20.675}, {3, 23.5375}, {4, 16.7375}, {5, 37.3375}, {6, 21.6875}, {7, 14.3375}, {8, 16.35}, {9, 33.4625}, {10, 10}, {11, 13.675}, {12, 24.35}, {13, 26.2375}, {14, 15.2625}, {15, 19.925}, {16, 26.0375}, {17, 29.4375}, {18, 15.2}, {19, 24.1625}, {20, 8.75}, {21, 28.975}, {22, 45.9625}, {23, 16.0375}, {24, 21.375}, {25, 3.75}, {26, 21.2375}, {27, 23.85}, {28, 22.8625}, {29, 33.6}, {30, 9.0125}, {31, 31.5875}, {32, 29.7875}, {33, 22.4375}, {34, 2.5}, {35, 20.5375}, {36, 30.8125}, {37, 17.2875}, {38, 13.95}, {39, 23.6875}, const double max_allowed_pro1 = 1.25
+const map<int, double> max_allowed_dis_store1 = { {0, 27.9625}, {1, 0}, {2, 7.2875}, {3, 19.3}, {4, 16.8}, {5, 33.4625}, {6, 30.6375}, {7, 27.175}, {8, 20.4125}, {9, 30.5625}, {10, 17.9625}, {11, 30.6875}, {12, 19.8125}, {13, 14.1}, {14, 26.6625}, {15, 32.4}, {16, 21.8}, {17, 25.5625}, {18, 15.2625}, {19, 9.0125}, {20, 21.5875}, {21, 16.55}, {22, 32.575}, {23, 14.3}, {24, 11.8}, {25, 24.2125}, {26, 9.1}, {27, 19.8125}, {28, 24.3}, {29, 20.2125}, {30, 24.1625}, {31, 18.2}, {32, 25.55}, {33, 9.05}, {34, 30.4625}, {35, 13.5375}, {36, 17.425}, {37, 13.05}, {38, 14.0125}, {39, 10.3}, const double max_allowed_pro2 = 1.25
+const map<int, double> max_allowed_dis_store2 = { {0, 20.675}, {1, 7.2875}, {2, 0}, {3, 18.25}, {4, 9.5125}, {5, 26.175}, {6, 29.55}, {7, 23.625}, {8, 13.125}, {9, 23.275}, {10, 10.675}, {11, 27.1375}, {12, 12.525}, {13, 20.95}, {14, 19.375}, {15, 27.7875}, {16, 20.75}, {17, 18.275}, {18, 7.975}, {19, 16.3}, {20, 18.0375}, {21, 9.2625}, {22, 25.2875}, {23, 10.75}, {24, 16.8625}, {25, 16.925}, {26, 15.95}, {27, 12.525}, {28, 26.975}, {29, 12.925}, {30, 25.625}, {31, 10.9125}, {32, 24.5}, {33, 1.7625}, {34, 23.175}, {35, 6.25}, {36, 10.1375}, {37, 12}, {38, 6.725}, {39, 3.0125}, 
